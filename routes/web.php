@@ -24,7 +24,7 @@ Route::get('/', function () {
     return view('home');
 })->name('home');
 
-Route::get('/users/{user}/posts', [UserPostController::class, 'index'])->name('users.posts');
+Route::get('/users/{user:username}/posts', [UserPostController::class, 'index'])->name('users.posts');
 
 Route::get('/dashboard', [DashboardController::class, 'index'])
     ->name('dashboard');
@@ -38,6 +38,7 @@ Route::post('/register', [RegisterController::class, 'store']);
 Route::post('/logout', [LogoutController::class, 'store'])->name('logout');
 
 Route::get('/posts', [PostController::class, 'index'])->name('posts');
+Route::get('/posts/{post}', [PostController::class, 'show'])->name('posts.show');
 Route::post('/posts', [PostController::class, 'store']);
 Route::delete('/posts/{post}', [PostController::class, 'destroy'])->name('posts.destroy');
 
