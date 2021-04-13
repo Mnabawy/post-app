@@ -26,10 +26,19 @@
             @if ($posts->count())
                 @foreach ($posts as $post)
                     <div class="mb-4">
-                        <a href="" class="font-bold mr-3">{{ $post->user->name }}
+                        <a href={{ route('users.posts', $post->user) }} class="font-bold mr-3">{{ $post->user->name }}
                         </a>
                         <span class="text-grey-600 text-sm">{{ $post->created_at->diffForHumans() }}</span>
                         <p class="mb-2">{{ $post->body }}</p>
+
+                        @can('delete', $post)
+
+                            <form action={{ route('posts.destroy', $post) }} method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="text-blue-500">Delete</button>
+                            </form>
+                        @endcan
 
                         <div class="flex items-center">
                             @auth
